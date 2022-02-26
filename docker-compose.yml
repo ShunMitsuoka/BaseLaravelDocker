@@ -18,6 +18,15 @@ services:
       - "${IP}:80:80"
     volumes:
       - ./docker/src:/var/www
+  # node
+  node:
+    container_name: node
+    build: ./docker/node
+    ports:
+      - "${IP}:3000:3000"
+    command: sh -c "cd tri-an-gout-client && npm run dev"
+    volumes:
+      - ./docker/src:/usr/src/app
   # MariaDB のコンテナ
   mariadb:
     container_name: mariadb

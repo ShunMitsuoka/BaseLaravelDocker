@@ -34,9 +34,7 @@ RUN apt-get update \
     && apt-get install -y git \
     # xdebugのインストール
     && pecl install xdebug \
-    && docker-php-ext-enable xdebug \
-    # nodeのインストール
-    && apt-get install -y nodejs npm
+    && docker-php-ext-enable xdebug
     
 # Composerのインストール & パス通す
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
