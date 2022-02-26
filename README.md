@@ -6,12 +6,12 @@ pull後はローカルブランチを作成してお使いください。
 ## イメージ作成＆コンテナ作成＆起動
 
 ```
-docker-compose run
+docker-compose up -d
 ```
 
 ## イメージを変更した場合
 
 ```
 docker-compose build
-docker-compose run
+docker-compose up -d
 ```
