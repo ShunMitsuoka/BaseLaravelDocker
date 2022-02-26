@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  # app
+  app:
+    container_name: app
+    build: 
+      context: .
+      dockerfile: ./docker/php/Dockerfile
+    volumes:
+      - ./docker/src:/var/www
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini
+  # nginx
+  nginx:
+    container_name: nginx
+    build: ./docker/nginx
+    ports:
+      - "${IP}:80:80"
+    volumes:
+      - ./docker/src:/var/www
+  # MariaDB のコンテナ
+  mariadb:
+    container_name: mariadb
+    image: mariadb:10.5.4
+    environment:
+      # ユーザー名やパスワードなどは適宜変更してください
+      MYSQL_DATABASE: $DB_NAME
+      MYSQL_USER: $DB_USER
+      MYSQL_PASSWORD: $DB_PASSWORD
+      MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
+    volumes:
+      - ./docker/db/data:/var/lib/mysql
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    environment:
+      PMA_ARBITRARY: 1
+      PMA_HOST: mariadb
+      PMA_USER: $DB_USER
+      PMA_PASSWORD: $DB_PASSWORD
+    ports:
+        - "${IP}:8080:80"
+    volumes:
+        - /sessions
