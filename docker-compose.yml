@@ -24,9 +24,9 @@ services:
     build: ./docker/node
     ports:
       - "${IP}:3000:3000"
-    command: sh -c "cd tri-an-gout-client && npm run dev"
+    command: sh -c "npm run dev"
     volumes:
-      - ./docker/src:/usr/src/app
+      - ./docker/src/tri-an-gout-client:/usr/src/app
   # MariaDB のコンテナ
   mariadb:
     container_name: mariadb
