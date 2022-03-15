@@ -15,7 +15,7 @@ services:
     container_name: nginx
     build: ./docker/nginx
     ports:
-      - "${IP}:80:80"
+      - 80:80
     volumes:
       - ./docker/src:/var/www
   # node
@@ -23,7 +23,7 @@ services:
     container_name: node
     build: ./docker/node
     ports:
-      - "${IP}:3000:3000"
+      - 3000:3000
     command: sh -c "npm run dev"
     volumes:
       - ./docker/src/tri-an-gout-client:/usr/src/app
@@ -48,6 +48,6 @@ services:
       PMA_USER: $DB_USER
       PMA_PASSWORD: $DB_PASSWORD
     ports:
-        - "${IP}:8080:80"
+        - 8080:80
     volumes:
         - /sessions
