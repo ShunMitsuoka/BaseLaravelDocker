@@ -27,6 +27,7 @@ services:
       - 3000:3000
     volumes:
       - ./docker/src/frontend:/usr/src/app
+    command: sh -c "cd next && npm run dev"
   # MariaDB のコンテナ
   bgs_mariadb:
     container_name: bgs_mariadb
