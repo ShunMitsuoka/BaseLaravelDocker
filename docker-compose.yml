@@ -22,9 +22,9 @@ services:
   bgs_node:
     container_name: bgs_node
     build: ./docker/node
+    tty: true
     ports:
       - 3000:3000
-    command: sh -c "npm run dev"
     volumes:
       - ./docker/src/frontend:/usr/src/app
   # MariaDB のコンテナ
