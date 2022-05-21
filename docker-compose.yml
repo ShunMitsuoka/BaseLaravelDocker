@@ -2,8 +2,8 @@ version: '3'
 
 services:
   # app
-  app:
-    container_name: app
+  bgs_app:
+    container_name: bgs_app
     build: 
       context: .
       dockerfile: ./docker/php/Dockerfile
@@ -11,16 +11,16 @@ services:
       - ./docker/src/backend:/var/www
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
   # nginx
-  nginx:
-    container_name: nginx
+  bgs_nginx:
+    container_name: bgs_nginx
     build: ./docker/nginx
     ports:
       - 80:80
     volumes:
       - ./docker/src:/var/www
   # node
-  node:
-    container_name: node
+  bgs_node:
+    container_name: bgs_node
     build: ./docker/node
     ports:
       - 3000:3000
@@ -28,8 +28,8 @@ services:
     volumes:
       - ./docker/src/frontend:/usr/src/app
   # MariaDB のコンテナ
-  mariadb:
-    container_name: mariadb
+  bgs_mariadb:
+    container_name: bgs_mariadb
     image: mariadb:10.5.4
     environment:
       # ユーザー名やパスワードなどは適宜変更してください
@@ -39,8 +39,8 @@ services:
       MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
     volumes:
       - ./docker/db/data:/var/lib/mysql
-  phpmyadmin:
-    container_name: phpmyadmin
+  bgs_phpmyadmin:
+    container_name: bgs_phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
     environment:
       PMA_ARBITRARY: 1
