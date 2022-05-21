@@ -44,7 +44,7 @@ services:
     image: phpmyadmin/phpmyadmin:latest
     environment:
       PMA_ARBITRARY: 1
-      PMA_HOST: mariadb
+      PMA_HOST: bgs_app_mariadb
       PMA_USER: $DB_USER
       PMA_PASSWORD: $DB_PASSWORD
     ports:
