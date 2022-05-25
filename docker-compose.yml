@@ -2,35 +2,35 @@ version: '3'
 
 services:
   # app
-  bgs_app:
-    container_name: bgs_app
+  repono_app:
+    container_name: repono_app
     build: 
       context: .
       dockerfile: ./docker/php/Dockerfile
     volumes:
-      - ./docker/src/backend:/var/www
+      - ./docker/src/laravel:/var/www
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
   # nginx
-  bgs_nginx:
-    container_name: bgs_nginx
+  repono_nginx:
+    container_name: repono_nginx
     build: ./docker/nginx
     ports:
       - 80:80
     volumes:
-      - ./docker/src/backend:/var/www
+      - ./docker/src/laravel:/var/www
   # node
-  bgs_node:
-    container_name: bgs_node
+  repono_node:
+    container_name: repono_node
     build: ./docker/node
     tty: true
     ports:
       - 3000:3000
     volumes:
-      - ./docker/src/frontend:/usr/src/app
-    command: sh -c "cd next && npm run dev"
+      - ./docker/src/next:/usr/src/app
+    command: sh -c "npm run dev"
   # MariaDB のコンテナ
-  bgs_mariadb:
-    container_name: bgs_mariadb
+  repono_mariadb:
+    container_name: repono_mariadb
     image: mariadb:10.5.4
     environment:
       # ユーザー名やパスワードなどは適宜変更してください
@@ -40,12 +40,12 @@ services:
       MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
     volumes:
       - ./docker/db/data:/var/lib/mysql
-  bgs_phpmyadmin:
-    container_name: bgs_phpmyadmin
+  repono_phpmyadmin:
+    container_name: repono_phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
     environment:
       PMA_ARBITRARY: 1
-      PMA_HOST: bgs_mariadb
+      PMA_HOST: repono_mariadb
       PMA_USER: $DB_USER
       PMA_PASSWORD: $DB_PASSWORD
     ports:
