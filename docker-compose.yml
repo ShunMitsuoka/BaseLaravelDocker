@@ -40,6 +40,8 @@ services:
       MYSQL_ROOT_PASSWORD: $DB_ROOT_PASSWORD
     volumes:
       - ./docker/db/data:/var/lib/mysql
+    ports:
+      - "3306:3306"
   repono_phpmyadmin:
     container_name: repono_phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
@@ -48,7 +50,8 @@ services:
       PMA_HOST: repono_mariadb
       PMA_USER: $DB_USER
       PMA_PASSWORD: $DB_PASSWORD
+      PMA_PORT: 3306
     ports:
-        - 8080:80
+        - "127.0.0.1:8080:80"
     volumes:
         - /sessions
