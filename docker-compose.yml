@@ -48,9 +48,6 @@ services:
     environment:
       PMA_ARBITRARY: 1
       PMA_HOST: repono_mariadb
-      PMA_USER: $DB_USER
-      PMA_PASSWORD: $DB_PASSWORD
-      PMA_PORT: 3306
     ports:
         - "127.0.0.1:8080:80"
     volumes:
