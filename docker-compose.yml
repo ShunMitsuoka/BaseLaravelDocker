@@ -4,11 +4,9 @@ services:
   # app
   repono_app:
     container_name: repono_app
-    build: 
-      context: .
-      dockerfile: ./docker/php/Dockerfile
+    build: ./docker/php
     volumes:
-      - ./docker/src/laravel:/var/www
+      - ./docker/src/repono_laravel:/var/www
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
   # nginx
   repono_nginx:
@@ -17,7 +15,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./docker/src/laravel:/var/www
+      - ./docker/src/repono_laravel:/var/www
   # node
   repono_node:
     container_name: repono_node
@@ -26,8 +24,8 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - ./docker/src/next:/usr/src/app
-    command: sh -c "npm run dev"
+      - ./docker/src/repono_node:/usr/src/app
+    command: sh -c "npm run ${NODE_RUN}"
   # MariaDB のコンテナ
   repono_mariadb:
     container_name: repono_mariadb
@@ -41,14 +39,14 @@ services:
     volumes:
       - ./docker/db/data:/var/lib/mysql
     ports:
-      - "3306:3306"
+      - 3306:3306
   repono_phpmyadmin:
     container_name: repono_phpmyadmin
     image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - repono_mariadb
     environment:
       PMA_ARBITRARY: 1
       PMA_HOST: repono_mariadb
     ports:
-        - "127.0.0.1:8080:80"
-    volumes:
-        - /sessions
+        - 8080:80
