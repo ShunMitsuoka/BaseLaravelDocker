@@ -5,6 +5,9 @@ services:
   repono_app:
     container_name: repono_app
     build: ./docker/php
+    tty: true
+    ports:
+      - 5173:5173
     volumes:
       - ./docker/src/repono_laravel:/var/www
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
@@ -25,7 +28,7 @@ services:
       - 3000:3000
     volumes:
       - ./docker/src/repono_node:/usr/src/app
-    command: sh -c "npm run ${NODE_RUN}"
+    command: sh -c "npm install && npm run ${NODE_RUN}"
   # MariaDB のコンテナ
   repono_mariadb:
     container_name: repono_mariadb
